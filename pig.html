@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="pig.css"> 
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo">BioSecure Farm</div>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+                <nav class="nav-menu" id="navMenu">
+                    <a href="#dashboard">Dashboard</a>
+                    <a href="#training">Training</a>
+                    <a href="#alerts">Alerts <span class="notification-badge" id="alertBadge">3</span></a>
+                    <a href="#reports">Reports</a>
+                    <a href="#help">Help</a>
+                </nav>
+                <div class="language-selector">
+                    <select id="languageSelect" onchange="changeLanguage()">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="hi">हिंदी</option>
+                        <option value="zh">中文</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard">
+            <!-- Risk Assessment Card -->
+            <div class="card" onclick="openModal('riskAssessmentModal')">
+                <div class="card-header">
+                    <div class="card-icon">📊</div>
+                    <div>
+                        <div class="card-title">Risk Assessment</div>
+                        <div class="status-indicator status-warning">Medium Risk</div>
+                    </div>
+                </div>
+                <div class="card-description">
+                    Evaluate biosecurity risks specific to your farm's location and livestock type.
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 65%;"></div>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-primary">Start Assessment</button>
+                </div>
+            </div>
+
+            <!-- Training Modules Card -->
+            <div class="card" onclick="openModal('trainingModal')">
+                <div class="card-header">
+                    <div class="card-icon">🎓</div>
+                    <div>
+                        <div class="card-title">Training Modules</div>
+                        <div class="status-indicator status-good">3/5 Complete</div>
+                    </div>
+                </div>
+                <div class="card-description">
+                    Interactive courses on biosecurity best practices for pig and poultry farming.
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 60%;"></div>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-primary">Continue Learning</button>
+                </div>
+            </div>
+
+            <!-- Compliance Tracking Card -->
+            <div class="card" onclick="openModal('complianceModal')">
+                <div class="card-header">
+                    <div class="card-icon">✅</div>
+                    <div>
+                        <div class="card-title">Compliance Tracker</div>
+                        <div class="status-indicator status-good">85% Complete</div>
+                    </div>
+                </div>
+                <div class="card-description">
+                    Track regulatory compliance and work toward disease-free compartment recognition.
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 85%;"></div>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-primary">View Checklist</button>
+                </div>
+            </div>
+
+            <!-- Disease Alerts Card -->
+            <div class="card" onclick="openModal('alertsModal')">
+                <div class="card-header">
+                    <div class="card-icon">🚨</div>
+                    <div>
+                        <div class="card-title">Disease Alerts</div>
+                        <div class="status-indicator status-danger">3 Active</div>
+                    </div>
+                </div>
+                <div class="card-description">
+                    Real-time notifications about disease outbreaks and biosecurity threats in your area.
+                </div>
+                <div class="alert alert-warning">
+                    <span>⚠️</span> Avian Flu outbreak reported 15km from your location
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-primary">View All Alerts</button>
+                </div>
+            </div>
+
+            <!-- Farm Records Card -->
+            <div class="card" onclick="openModal('recordsModal')">
+                <div class="card-header">
+                    <div class="card-icon">📋</div>
+                    <div>
+                        <div class="card-title">Farm Records</div>
+                        <div class="status-indicator status-good">Up to Date</div>
+                    </div>
+                </div>
+                <div class="card-description">
+                    Digital record-keeping for livestock health, vaccinations, and biosecurity measures.
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">250</div>
+                        <div class="stat-label">Total Animals</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Vaccination Rate</div>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-primary">Manage Records</button>
+                </div>
+            </div>
+
+            <!-- Monitoring Dashboard Card -->
+            <div class="card" onclick="openModal('monitoringModal')">
+                <div class="card-header">
+                    <div class="card-icon">📈</div>
+                    <div>
+                        <div class="card-title">Monitoring Dashboard</div>
+                        <div class="status-indicator status-good">All Systems Normal</div>
+                    </div>
+                </div>
+                <div class="card-description">
+                    Real-time monitoring of biosecurity parameters and farm health indicators.
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">24°C</div>
+                        <div class="stat-label">Temperature</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">65%</div>
+                        <div class="stat-label">Humidity</div>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <button class="btn btn-primary">View Dashboard</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Risk Assessment Modal -->
+    <div id="riskAssessmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('riskAssessmentModal')">&times;</span>
+            <h2>🔍 Farm Biosecurity Risk Assessment</h2>
+            <p>Complete this assessment to identify potential biosecurity risks on your farm.</p>
+            
+            <form id="riskAssessmentForm">
+                <div class="form-group">
+                    <label>Farm Type:</label>
+                    <select name="farmType" required>
+                        <option value="">Select your farm type</option>
+                        <option value="poultry">Poultry Farm</option>
+                        <option value="pig">Pig Farm</option>
+                        <option value="mixed">Mixed Livestock</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Number of Animals:</label>
+                    <input type="number" name="animalCount" placeholder="Total number of animals" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Farm Location (District/Region):</label>
+                    <input type="text" name="location" placeholder="Enter your location" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Nearest Farm Distance:</label>
+                    <select name="nearestFarm" required>
+                        <option value="">Select distance</option>
+                        <option value="0-1km">Less than 1km</option>
+                        <option value="1-5km">1-5km</option>
+                        <option value="5-10km">5-10km</option>
+                        <option value="10km+">More than 10km</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Biosecurity Measures Currently in Place:</label>
+                    <ul class="checklist">
+                        <li><input type="checkbox" name="measures" value="disinfection"> Disinfection protocols</li>
+                        <li><input type="checkbox" name="measures" value="quarantine"> Quarantine facilities</li>
+                        <li><input type="checkbox" name="measures" value="access-control"> Controlled access</li>
+                        <li><input type="checkbox" name="measures" value="protective-clothing"> Protective clothing</li>
+                        <li><input type="checkbox" name="measures" value="waste-management"> Proper waste management</li>
+                        <li><input type="checkbox" name="measures" value="water-treatment"> Water treatment</li>
+                    </ul>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Calculate Risk Score</button>
+            </form>
+            
+            <div id="riskResults" style="display: none;">
+                <h3>Risk Assessment Results</h3>
+                <div class="alert alert-warning">
+                    <span>⚠️</span> Your farm has a <strong>Medium Risk</strong> profile
+                </div>
+                <h4>Recommendations:</h4>
+                <ul>
+                    <li>Implement stricter visitor protocols</li>
+                    <li>Upgrade disinfection procedures</li>
+                    <li>Install proper quarantine facilities</li>
+                    <li>Regular health monitoring of animals</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Training Modal -->
+    <div id="trainingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('trainingModal')">&times;</span>
+            <h2>🎓 Biosecurity Training Modules</h2>
+            
+            <div class="training-modules">
+                <div class="card">
+                    <h3>Module 1: Introduction to Biosecurity</h3>
+                    <div class="status-indicator status-good">Completed</div>
+                    <p>Learn the fundamentals of biosecurity in livestock farming.</p>
+                    <button class="btn btn-secondary">Review Module</button>
+                </div>
+                
+                <div class="card">
+                    <h3>Module 2: Disinfection Protocols</h3>
+                    <div class="status-indicator status-good">Completed</div>
+                    <p>Proper disinfection techniques and procedures.</p>
+                    <button class="btn btn-secondary">Review Module</button>
+                </div>
+                
+                <div class="card">
+                    <h3>Module 3: Access Control Systems</h3>
+                    <div class="status-indicator status-good">Completed</div>
+                    <p>Managing farm access and visitor protocols.</p>
+                    <button class="btn btn-secondary">Review Module</button>
+                </div>
+                
+                <div class="card">
+                    <h3>Module 4: Disease Detection</h3>
+                    <div class="status-indicator status-warning">In Progress</div>
+                    <p>Early detection signs and reporting procedures.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%;"></div>
+                    </div>
+                    <button class="btn btn-primary">Continue Module</button>
+                </div>
+                
+                <div class="card">
+                    <h3>Module 5: Emergency Response</h3>
+                    <div class="status-indicator status-danger">Not Started</div>
+                    <p>Response protocols for disease outbreaks.</p>
+                    <button class="btn btn-primary">Start Module</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compliance Modal -->
+    <div id="complianceModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('complianceModal')">&times;</span>
+            <h2>✅ Regulatory Compliance Tracker</h2>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 85%;"></div>
+            </div>
+            <p><strong>Overall Compliance: 85%</strong></p>
+            
+            <h3>Compliance Checklist</h3>
+            <ul class="checklist">
+                <li><input type="checkbox" checked disabled> Farm registration completed</li>
+                <li><input type="checkbox" checked disabled> Veterinary health certificate obtained</li>
+                <li><input type="checkbox" checked disabled> Biosecurity plan documented</li>
+                <li><input type="checkbox" checked disabled> Staff training records maintained</li>
+                <li><input type="checkbox" checked disabled> Vaccination schedules up to date</li>
+                <li><input type="checkbox" checked disabled> Movement records maintained</li>
+                <li><input type="checkbox" disabled> Annual biosecurity audit (Due in 2 months)</li>
+                <li><input type="checkbox" disabled> Emergency response plan review</li>
+            </ul>
+            
+            <div class="alert alert-warning">
+                <span>⚠️</span> Annual audit due in 2 months. Schedule your inspection now.
+            </div>
+            
+            <button class="btn btn-primary">Schedule Audit</button>
+            <button class="btn btn-secondary">Download Certificate</button>
+        </div>
+    </div>
+
+    <!-- Alerts Modal -->
+    <div id="alertsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('alertsModal')">&times;</span>
+            <h2>🚨 Disease Alerts & Notifications</h2>
+            
+            <div class="alert alert-danger">
+                <span>🔴</span> <strong>HIGH PRIORITY:</strong> Avian Influenza outbreak confirmed 15km from your location. Implement immediate biosecurity measures.
+            </div>
+            
+            <div class="alert alert-warning">
+                <span>🟡</span> <strong>MEDIUM PRIORITY:</strong> Increased foot traffic reported in neighboring farms. Monitor your access points.
+            </div>
+            
+            <div class="alert alert-warning">
+                <span>🟡</span> <strong>WEATHER ALERT:</strong> Heavy rains expected. Ensure proper drainage and ventilation.
+            </div>
+            
+            <h3>Recent Notifications</h3>
+            <div class="notifications-list">
+                <div class="notification-item">
+                    <strong>Yesterday:</strong> Vaccination reminder for Batch A poultry
+                </div>
+                <div class="notification-item">
+                    <strong>2 days ago:</strong> Monthly biosecurity report generated
+                </div>
+                <div class="notification-item">
+                    <strong>1 week ago:</strong> Training module 4 unlocked
+                </div>
+            </div>
+            
+            <button class="btn btn-primary">Mark All as Read</button>
+        </div>
+    </div>
+
+    <!-- Records Modal -->
+    <div id="recordsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('recordsModal')">&times;</span>
+            <h2>📋 Digital Farm Records</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">250</div>
+                    <div class="stat-label">Total Animals</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">245</div>
+                    <div class="stat-label">Vaccinated</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">In Quarantine</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Under Treatment</div>
+                </div>
+            </div>
+            
+            <h3>Quick Actions</h3>
+            <div class="card-actions">
+                <button class="btn btn-primary">Add New Animal</button>
+                <button class="btn btn-secondary">Record Vaccination</button>
+                <button class="btn btn-secondary">Health Check Entry</button>
+                <button class="btn btn-secondary">Generate Report</button>
+            </div>
+            
+            <h3>Recent Records</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                <thead>
+                    <tr style="background: #f8f9fa;">
+                        <th style="padding: 0.5rem; border: 1px solid #ddd;">Date</th>
+                        <th style="padding: 0.5rem; border: 1px solid #ddd;">Action</th>
+                        <th style="padding: 0.5rem; border: 1px solid #ddd;">Animals</th>
+                        <th style="padding: 0.5rem; border: 1px solid #ddd;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">2025-09-09</td>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">Vaccination</td>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">25 Chickens</td>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;"><span class="status-indicator status-good">Complete</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">2025-09-08</td>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">Health Check</td>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;">All Animals</td>
+                        <td style="padding: 0.5rem; border: 1px solid #ddd;"><span class="status-indicator status-good">Normal</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Monitoring Modal -->
+    <div id="monitoringModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('monitoringModal')">&times;</span>
+            <h2>📈 Real-time Monitoring Dashboard</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">24°C</div>
+                    <div class="stat-label">Temperature</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">65%</div>
+                    <div class="stat-label">Humidity</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Good</div>
+                    <div class="stat-label">Air Quality</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Normal</div>
+                    <div class="stat-label">Water Quality</div>
+                </div>
+            </div>
+            
+            <h3>Biosecurity Status</h3>
+            <div class="alert alert-success">
+                <span>✅</span> All biosecurity parameters within normal range
+            </div>
+      <script src="pig.js" ></script>   
+</body>
+</html>
